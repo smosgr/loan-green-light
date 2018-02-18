@@ -1,0 +1,73 @@
+group 'com.zopa'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin:'application'
+apply plugin: 'jacoco'
+apply plugin: 'idea'
+
+mainClassName = "CalculationSystem"
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'CalculationSystem'
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+def jacocoVersion = '0.7.9'
+
+jacoco {
+    toolVersion = jacocoVersion
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.9
+            }
+        }
+    }
+}
+
+test {
+    beforeTest { descriptor -> logger.lifecycle("Running: " + descriptor) }
+    reports.html.enabled = true
+    reports.junitXml.enabled = true
+
+    jacoco {
+        append = false
+    }
+}
+
+def coverageExcludes = [
+]
+
+
+jacocoTestReport {
+    sourceDirectories = files('src/main/java')
+    dependsOn(test)
+
+    reports {
+        xml.enabled = false
+        csv.enabled = false
+        html.enabled = true
+        html.destination file("${buildDir}/reports/coverage/test")
+    }
+
+    afterEvaluate {
+        //noinspection GrReassignedInClosureLocalVar
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, excludes: coverageExcludes)
+        })
+    }
+}
