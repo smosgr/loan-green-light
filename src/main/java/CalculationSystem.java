@@ -6,7 +6,11 @@ public class CalculationSystem {
 
     private static void init() {
         ConsoleApp consoleApp = new ConsoleApp();
-        consoleApp.setupConsole();
+        try {
+            consoleApp.setupConsole();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.getMessage();
+        }
 
     }
 }

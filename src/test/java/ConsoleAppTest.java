@@ -60,4 +60,24 @@ public class ConsoleAppTest {
         assertEquals(false, result);
     }
 
+    @Test
+    public void testAppWillExitWithSuccess2() {
+        //GIVEN
+        String input = "q";
+
+        //WHEN
+        boolean result = consoleApp.validateAppName(input);
+
+        //THEN
+        assertEquals(false, result);
+    }
+
+    @Test
+    public void testIncrementsOf100AreRequested() {
+        //GIVEN
+        //WHEN
+        //THEN
+    }
+
+
 }
