@@ -1,13 +1,13 @@
-import java.io.IOException;
 import java.io.InputStream;
+import java.util.InputMismatchException;
 
 public class InputValidator {
 
-    ConsoleApp consoleApp; //TODO: remove when parser class is added
+    CsvParser csvParser = new CsvParser();
 
     InputValidator() {
-    }
 
+    }
 
     public boolean validateAppName(String input) {
 
@@ -19,7 +19,7 @@ public class InputValidator {
             return true;
         } else
             System.out.println("'" + input + "' is not the correct application name. You may want to use 'quote.exe' instead.");
-            return true;
+        return true;
     }
 
     public boolean validateRequestedAmount(String part) {
@@ -32,21 +32,20 @@ public class InputValidator {
         return false;
     }
 
-    public void validateDataFilename(String data) {
-        if (data.equals("market.csv")) {
-            //Import file 'market.csv' here
-            InputStream inputStream = this.getClass().getResourceAsStream("market.csv");
+    public void validateDataFilename(String filename) {
+
+        if (filename.equals("market.csv")) {
+
+            InputStream data = this.getClass().getResourceAsStream(filename);
 
             try {
-                //TODO: move to parser class
-                String in = consoleApp.readFromInputStream(inputStream);
-                System.out.println(in);
+                csvParser.parseDatafile(data);
 
-            } catch (IOException io) {
-                io.getMessage();
+            } catch (InputMismatchException e) {
+                e.getMessage();
             }
-        }
+        } else
+            System.out.println("'" + filename + "' is not the right filename. Please try again with 'market.csv'.");
     }
-
 
 }
