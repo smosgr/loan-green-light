@@ -1,4 +1,5 @@
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -8,15 +9,13 @@ import static org.junit.Assert.assertEquals;
 
 public class ConsoleAppTest {
     Scanner scanner;
-    ConsoleApp consoleApp;
+    InputValidator inputValidator;
     String input = "";
-
 
     @Before
     public void initTestClass() {
         scanner = new Scanner(System.in);
-        consoleApp = new ConsoleApp();
-
+        inputValidator = new InputValidator();
     }
 
     @Test
@@ -38,10 +37,10 @@ public class ConsoleAppTest {
     @Test
     public void testQuoteAppIsRunningWithSuccess() {
         //GIVEN
-        String input = "quote.exe";
+        input = "quote.exe";
 
         //WHEN
-        boolean result = consoleApp.validateAppName(input);
+        boolean result = inputValidator.validateAppName(input);
 
         //THEN
         assertEquals(true, result);
@@ -51,10 +50,10 @@ public class ConsoleAppTest {
     @Test
     public void testAppWillExitWithSuccess() {
         //GIVEN
-        String input = "Q";
+        input = "Q";
 
         //WHEN
-        boolean result = consoleApp.validateAppName(input);
+        boolean result = inputValidator.validateAppName(input);
 
         //THEN
         assertEquals(false, result);
@@ -63,17 +62,17 @@ public class ConsoleAppTest {
     @Test
     public void testAppWillExitWithSuccess2() {
         //GIVEN
-        String input = "q";
+        input = "q";
 
         //WHEN
-        boolean result = consoleApp.validateAppName(input);
+        boolean result = inputValidator.validateAppName(input);
 
         //THEN
         assertEquals(false, result);
     }
 
     @Test
-    public void testIncrementsOf100AreRequested() {
+    public void templateTest() {
         //GIVEN
         //WHEN
         //THEN

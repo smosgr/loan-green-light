@@ -2,7 +2,7 @@ group 'com.zopa'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
-apply plugin:'application'
+apply plugin: 'application'
 apply plugin: 'jacoco'
 apply plugin: 'idea'
 
@@ -49,6 +49,12 @@ test {
     }
 }
 
+tasks.withType(Test) {
+    testLogging {
+        events("FAILED", "SKIPPED")
+    }
+}
+
 def coverageExcludes = [
 ]
 
@@ -65,7 +71,6 @@ jacocoTestReport {
     }
 
     afterEvaluate {
-        //noinspection GrReassignedInClosureLocalVar
         classDirectories = files(classDirectories.files.collect {
             fileTree(dir: it, excludes: coverageExcludes)
         })
