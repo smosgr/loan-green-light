@@ -1,6 +1,6 @@
 import org.junit.Test;
 
-public class CompoundInterestCalcTest {
+public class OutputCalculatorTest {
 
     @Test
     public void testCompoundInterestCalculation(){

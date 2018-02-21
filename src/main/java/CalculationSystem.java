@@ -7,7 +7,7 @@ public class CalculationSystem {
     private static void init() {
         ConsoleApp consoleApp = new ConsoleApp();
         try {
-            consoleApp.setupConsole();
+            consoleApp.callValidators();
         } catch (ArrayIndexOutOfBoundsException e) {
             e.getMessage();
         }

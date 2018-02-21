@@ -4,14 +4,16 @@ import java.util.Scanner;
 
 public class ConsoleApp {
 
-    InputValidator inputValidator = new InputValidator();
-    CsvParser csvParser = new CsvParser();
-    InputStream data;
+    private InputValidator inputValidator = new InputValidator();
+    private CsvParser csvParser = new CsvParser();
+    private InputStream data;
+
 
     ConsoleApp() {
     }
 
-    public void setupConsole() {
+
+    public void callValidators() {
         String input;
         String[] parts;
         boolean appValidation = true;
@@ -19,24 +21,36 @@ public class ConsoleApp {
 
         while (appValidation) {
 
-            System.out.print("cmd>  ");
+            setupConsole();
+
             input = readFromConsole();
+
             parts = input.split(" ");
 
             try {
                 appValidation = inputValidator.validateAppName(parts[0]);
 
                 if (appValidation) {
-                    amountValidation = inputValidator.validateRequestedAmount(parts[2]);
+
+                    int requestedAmount = Integer.parseInt(parts[2]);
+
+                    amountValidation = inputValidator.validateRequestedAmount(requestedAmount);
 
                     if (amountValidation && inputValidator.validateDataFilename(parts[1])) {
+
                         try {
+
                             data = this.getClass().getResourceAsStream(parts[1]);
                         } catch (InputMismatchException e) {
                             e.getMessage();
+
                         }
 
-                        csvParser.parseDatafile(data);
+                        double[] availability = csvParser.parseDatafile(data);
+
+                        OutputCalculator calc = new OutputCalculator();
+                        calc.calculateInterest(availability, requestedAmount);
+
 
                     } else
                         continue;
@@ -44,10 +58,12 @@ public class ConsoleApp {
             } catch (ArrayIndexOutOfBoundsException e) {
                 e.getMessage();
             }
-
         }
-
         System.exit(1);
+    }
+
+    private void setupConsole() {
+        System.out.print("cmd>  ");
     }
 
     public String readFromConsole() {

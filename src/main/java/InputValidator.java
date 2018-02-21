@@ -1,5 +1,9 @@
 public class InputValidator {
 
+    public static final int MIN_ALLOWED_AMOUNT = 1000;
+    public static final int MAX_ALLOWED_AMOUNT = 15000;
+    public static final int ALLOWED_INCREMENTS = 100;
+
     CsvParser csvParser = new CsvParser();
 
     InputValidator() {
@@ -19,10 +23,9 @@ public class InputValidator {
         return true;
     }
 
-    public boolean validateRequestedAmount(String part) {
-        int amount = Integer.parseInt(part);
+    public boolean validateRequestedAmount(int amount) {
 
-        if ((amount % 100 == 0.0) && (amount >= 1000 && amount <= 15000)) {
+        if ((amount % ALLOWED_INCREMENTS == 0.0) && (amount >= MIN_ALLOWED_AMOUNT && amount <= MAX_ALLOWED_AMOUNT)) {
             return true;
         } else
             System.out.println("Only increments of £100 allowed. Requested amount should be between 1000 to 15000 inclusive.");
