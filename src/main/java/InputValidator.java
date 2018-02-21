@@ -1,6 +1,3 @@
-import java.io.InputStream;
-import java.util.InputMismatchException;
-
 public class InputValidator {
 
     CsvParser csvParser = new CsvParser();
@@ -32,20 +29,15 @@ public class InputValidator {
         return false;
     }
 
-    public void validateDataFilename(String filename) {
+    public boolean validateDataFilename(String filename) {
 
         if (filename.equals("market.csv")) {
-
-            InputStream data = this.getClass().getResourceAsStream(filename);
-
-            try {
-                csvParser.parseDatafile(data);
-
-            } catch (InputMismatchException e) {
-                e.getMessage();
-            }
-        } else
-            System.out.println("'" + filename + "' is not the right filename. Please try again with 'market.csv'.");
+            System.out.println("'" + filename + "' is found.\n");
+            return true;
+        } else {
+            System.out.println("'" + filename + "' was not found. Please try again with 'market.csv'.\n");
+            return false;
+        }
     }
 
 }

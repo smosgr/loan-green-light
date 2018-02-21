@@ -1,8 +1,12 @@
+import java.io.InputStream;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ConsoleApp {
 
     InputValidator inputValidator = new InputValidator();
+    CsvParser csvParser = new CsvParser();
+    InputStream data;
 
     ConsoleApp() {
     }
@@ -25,9 +29,15 @@ public class ConsoleApp {
                 if (appValidation) {
                     amountValidation = inputValidator.validateRequestedAmount(parts[2]);
 
-                    if (appValidation && amountValidation) {
-                        //TODO: PARSE FILE HERE
-                        inputValidator.validateDataFilename(parts[1]);
+                    if (amountValidation && inputValidator.validateDataFilename(parts[1])) {
+                        try {
+                            data = this.getClass().getResourceAsStream(parts[1]);
+                        } catch (InputMismatchException e) {
+                            e.getMessage();
+                        }
+
+                        csvParser.parseDatafile(data);
+
                     } else
                         continue;
                 }
