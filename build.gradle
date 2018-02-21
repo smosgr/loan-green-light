@@ -21,6 +21,7 @@ jar {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
 }
 
 def jacocoVersion = '0.7.9'
@@ -47,11 +48,17 @@ test {
     jacoco {
         append = false
     }
+
+    reports {
+        html.enabled true
+        html.destination file("${buildDir}/reports/unit-tests")
+    }
 }
 
 tasks.withType(Test) {
     testLogging {
-        events("FAILED", "SKIPPED")
+        showStandardStreams = true
+        events("PASSED", "FAILED", "SKIPPED")
     }
 }
 

@@ -25,13 +25,12 @@ public class CsvParser {
 
                 rates = rates + Double.parseDouble(values[1]);
                 totalOfferedAmount = totalOfferedAmount + Integer.parseInt(values[2]);
+                records++;
             }
 
-            records++;
         }
 
         scanner.close();
-
 
         double averageRate = rates / records;
         double[] availability = {averageRate, totalOfferedAmount};

@@ -1,19 +1,29 @@
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.Assert.assertEquals;
+
 public class OutputCalculatorTest {
 
     @Test
-    public void testCompoundInterestCalculation(){
+    public void testPrinterProvidesTheCorrectOutput() throws Exception {
 
-        double amount = 1500.0;
+        //GIVEN
+        OutputCalculator outputCalculator = new OutputCalculator();
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
 
-        for (int x = 0; x < 3; x++) {
-            amount = amount * Math.pow(1.0 + 0.054444285714286, 3);
-            System.out.println("------- THE AMOUNT IS --------" + amount);
+        //WHEN
+        outputCalculator.printOutput(400, 4, 4000, 1000);
 
-        }
-
-
+        String expectedOutput = "Requested amount: £1000\n" +
+                                "Rate: 4.0%\n" +
+                                "Monthly repayment: £400.0\n" +
+                                "Total repayment: £4000.0\n";
+        //THEN
+        assertEquals(expectedOutput, outContent.toString());
     }
 
 }
