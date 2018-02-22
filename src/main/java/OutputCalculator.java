@@ -7,19 +7,29 @@ public class OutputCalculator {
         //TODO: FIX CALCULATION
 
         double rate = availability[0]; // SHOULD BE 0.077857142857143 aka 7.785714285714286 aka 7.8%
-        System.out.println("----------------------------" + rate);
         double principal = availability[1];
 
-        double compoundInterest = Math.pow(1.0 + rate, YEARS_IN_MONTHS) - 1.0;
 
-        double totalRepayment = principal * compoundInterest;
+        if (requestedAmount > principal) {
 
-        double monthlyRepayment = totalRepayment / YEARS_IN_MONTHS;
+            System.out.println("Sorry, we are not able to provide you with "
+                    + "the requested amount "
+                    + " ("
+                    + "£" + requestedAmount
+                    + ") "
+                    + " at this time. Please try again later");
+        } else {
+            double compoundInterest = Math.pow(1.0 + rate, YEARS_IN_MONTHS/12);
 
-        printOutput(monthlyRepayment, compoundInterest, totalRepayment, requestedAmount);
 
-        //TODO: CONFUSED REQUESTED MONEY WITH AVAILABLE MONEY?
-    }
+            double totalRepayment = requestedAmount * compoundInterest;
+
+            double monthlyRepayment = totalRepayment / YEARS_IN_MONTHS;
+
+            printOutput(monthlyRepayment, compoundInterest, totalRepayment, requestedAmount);
+
+        }
+        }
 
     public void printOutput(double monthlyRepayment, double compoundInterest, double totalRepayment, int requestedAmount) {
         System.out.println("Requested amount: " + "£" + requestedAmount);
