@@ -2,11 +2,9 @@ public class OutputCalculator {
 
     public static final double YEARS_IN_MONTHS = 36;
 
-    public void calculateInterest(double[] availability, int requestedAmount) { //principal= 1000, years=3;
+    public void calculateInterest(double[] availability, int requestedAmount) {
 
-        //TODO: FIX CALCULATION
-
-        double rate = availability[0]; // SHOULD BE 0.077857142857143 aka 7.785714285714286 aka 7.8%
+        double rate = availability[0];
         double principal = availability[1];
 
 
@@ -19,8 +17,7 @@ public class OutputCalculator {
                     + ") "
                     + " at this time. Please try again later");
         } else {
-            double compoundInterest = Math.pow(1.0 + rate, YEARS_IN_MONTHS/12);
-
+            double compoundInterest = Math.pow(1.0 + rate, YEARS_IN_MONTHS / 12);  // converted YEARS_IN_MONTHS to years
 
             double totalRepayment = requestedAmount * compoundInterest;
 
@@ -29,7 +26,7 @@ public class OutputCalculator {
             printOutput(monthlyRepayment, compoundInterest, totalRepayment, requestedAmount);
 
         }
-        }
+    }
 
     public void printOutput(double monthlyRepayment, double compoundInterest, double totalRepayment, int requestedAmount) {
         System.out.println("Requested amount: " + "£" + requestedAmount);

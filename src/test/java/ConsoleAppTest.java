@@ -70,12 +70,4 @@ public class ConsoleAppTest {
         assertEquals(false, result);
     }
 
-    @Test
-    public void templateTest() {
-        //GIVEN
-        //WHEN
-        //THEN
-    }
-
-
 }

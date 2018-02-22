@@ -4,8 +4,6 @@ public class InputValidator {
     public static final int MAX_ALLOWED_AMOUNT = 15000;
     public static final int ALLOWED_INCREMENTS = 100;
 
-    CsvParser csvParser = new CsvParser();
-
     InputValidator() {
 
     }

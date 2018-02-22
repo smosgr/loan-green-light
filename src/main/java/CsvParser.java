@@ -11,7 +11,6 @@ public class CsvParser {
     public CsvParser() {
     }
 
-
     public static double[] parseDatafile(InputStream inputStream) {
 
         Scanner scanner = new Scanner(inputStream);
@@ -27,16 +26,12 @@ public class CsvParser {
                 totalOfferedAmount = totalOfferedAmount + Integer.parseInt(values[2]);
                 records++;
             }
-
         }
-
         scanner.close();
 
         double averageRate = rates / records;
         double[] availability = {averageRate, totalOfferedAmount};
 
-
         return availability;
-
     }
 }
