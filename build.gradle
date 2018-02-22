@@ -40,19 +40,22 @@ jacocoTestCoverageVerification {
     }
 }
 
+
 test {
     beforeTest { descriptor -> logger.lifecycle("Running: " + descriptor) }
     reports.html.enabled = true
     reports.junitXml.enabled = true
 
     jacoco {
-        append = false
+        append = true
     }
 
     reports {
         html.enabled true
         html.destination file("${buildDir}/reports/unit-tests")
     }
+
+
 }
 
 tasks.withType(Test) {
@@ -74,7 +77,8 @@ jacocoTestReport {
         xml.enabled = false
         csv.enabled = false
         html.enabled = true
-        html.destination file("${buildDir}/reports/coverage/test")
+        html.destination file("${buildDir}/reports/coverage/test/")
+        println html.destination
     }
 
     afterEvaluate {
@@ -83,3 +87,5 @@ jacocoTestReport {
         })
     }
 }
+
+test.finalizedBy(jacocoTestReport)
